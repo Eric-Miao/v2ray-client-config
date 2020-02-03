@@ -1,0 +1,66 @@
+{
+  "inbounds": [
+    {
+      "port": 1080, 
+      "protocol": "socks", 
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
+      "settings": {
+        "auth": "noauth"  
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess", 
+      "settings": {
+        "vnext": [
+          {
+            "address": "136.244.106.47", 
+            "port": 27751,  
+            "users": [
+              {
+                "id": "5f9fa0fb-203c-4713-a045-841464d50c13",  
+                "alterId": 64 
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    }    
+  ],
+
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "domain": [
+            "domain:taobao.com",
+            "domain:jd.com"
+        ]
+      },
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "domain": ["geosite:cn"] 
+      },
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "ip": [
+          "geoip:cn", 
+          "geoip:private" 
+        ]
+      }
+    ]
+  }
+}
